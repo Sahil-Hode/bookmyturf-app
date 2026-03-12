@@ -1,50 +1,335 @@
-# Welcome to your Expo app 👋
+# BookMyTurf Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A scalable **React Native (Expo) application** for discovering and booking sports turfs.
+The platform supports **Customers**, **Turf Owners**, and **Admins** with a modular architecture designed for **production-level scalability**.
 
-## Get started
+---
 
-1. Install dependencies
+# Features
 
-   ```bash
-   npm install
-   ```
+## Customer
 
-2. Start the app
+* OTP Login
+* Google Sign In
+* Search turfs
+* Filter by location, rating, price
+* Turf details page
+* Live slot booking
+* Booking history
+* Profile management
+* Reviews
 
-   ```bash
-   npx expo start
-   ```
+## Turf Owner
 
-In the output, you'll find options to open the app in a
+* Owner dashboard
+* Manage turfs
+* Accept / Reject bookings
+* Earnings analytics
+* Export earnings reports
+* Manage slots
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Admin
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+* Manage users
+* Turf approval system
+* Platform analytics
 
-## Get a fresh project
+---
 
-When you're ready, run:
+# Tech Stack
 
-```bash
-npm run reset-project
+### Mobile
+
+* Expo
+* React Native
+* TypeScript
+* React Navigation
+* Zustand (State Management)
+* React Query (Server State)
+* Axios
+
+### Backend
+
+* Node.js
+* Express.js
+* PostgreSQL / MySQL
+* Redis
+* Cashfree (Payments)
+* MSG91 (OTP)
+
+---
+
+# Project Folder Structure
+
+Below is the **production-ready folder structure** of the application.
+
+```
+bookmyturf-app
+│
+├── app.json
+├── package.json
+├── tsconfig.json
+├── babel.config.js
+├── .env
+│
+├── assets
+│   ├── icons
+│   ├── images
+│   ├── fonts
+│   └── animations
+│
+├── src
+│
+│   ├── app
+│   │   ├── navigation
+│   │   │   ├── RootNavigator.tsx
+│   │   │   ├── AuthNavigator.tsx
+│   │   │   ├── CustomerNavigator.tsx
+│   │   │   ├── OwnerNavigator.tsx
+│   │   │   └── AdminNavigator.tsx
+│   │   │
+│   │   ├── providers
+│   │   │   ├── AuthProvider.tsx
+│   │   │   ├── ThemeProvider.tsx
+│   │   │   └── QueryProvider.tsx
+│   │   │
+│   │   └── App.tsx
+│
+│   ├── config
+│   │   ├── env.ts
+│   │   ├── api.ts
+│   │   └── constants.ts
+│
+│   ├── core
+│   │   ├── hooks
+│   │   │   ├── useAuth.ts
+│   │   │   ├── useLocation.ts
+│   │   │   ├── useDebounce.ts
+│   │   │   └── usePagination.ts
+│   │   │
+│   │   ├── utils
+│   │   │   ├── date.ts
+│   │   │   ├── currency.ts
+│   │   │   ├── validators.ts
+│   │   │   └── helpers.ts
+│   │   │
+│   │   └── services
+│   │       ├── apiClient.ts
+│   │       ├── storage.ts
+│   │       └── logger.ts
+│
+│   ├── components
+│   │   ├── common
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Loader.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   └── Modal.tsx
+│   │   │
+│   │   ├── turf
+│   │   │   ├── TurfCard.tsx
+│   │   │   ├── TurfGallery.tsx
+│   │   │   ├── TurfAmenities.tsx
+│   │   │   └── TurfReviews.tsx
+│   │   │
+│   │   ├── booking
+│   │   │   ├── SlotPicker.tsx
+│   │   │   ├── BookingCard.tsx
+│   │   │   └── BookingSummary.tsx
+│   │   │
+│   │   └── charts
+│   │       ├── EarningsChart.tsx
+│   │       └── BookingStats.tsx
+│
+│   ├── features
+│   │
+│   │   ├── auth
+│   │   │   ├── screens
+│   │   │   │   ├── LoginScreen.tsx
+│   │   │   │   ├── OTPScreen.tsx
+│   │   │   │   ├── GoogleLoginScreen.tsx
+│   │   │   │   └── CreateProfileScreen.tsx
+│   │   │   │
+│   │   │   ├── components
+│   │   │   │   ├── OTPInput.tsx
+│   │   │   │   └── SocialLoginButton.tsx
+│   │   │   │
+│   │   │   ├── services
+│   │   │   │   └── authService.ts
+│   │   │   │
+│   │   │   └── store
+│   │   │       └── authStore.ts
+│   │
+│   │   ├── customer
+│   │   │   ├── screens
+│   │   │   │   ├── HomeScreen.tsx
+│   │   │   │   ├── SearchScreen.tsx
+│   │   │   │   ├── TurfDetailsScreen.tsx
+│   │   │   │   ├── BookingScreen.tsx
+│   │   │   │   ├── MyBookingsScreen.tsx
+│   │   │   │   └── ProfileScreen.tsx
+│   │   │
+│   │   │   ├── components
+│   │   │   │   ├── SearchFilters.tsx
+│   │   │   │   ├── TurfList.tsx
+│   │   │   │   └── BookingCalendar.tsx
+│   │   │
+│   │   │   ├── services
+│   │   │   │   ├── turfService.ts
+│   │   │   │   └── bookingService.ts
+│   │   │
+│   │   │   └── store
+│   │   │       ├── turfStore.ts
+│   │   │       └── bookingStore.ts
+│   │
+│   │   ├── owner
+│   │   │   ├── screens
+│   │   │   │   ├── DashboardScreen.tsx
+│   │   │   │   ├── ManageTurfsScreen.tsx
+│   │   │   │   ├── BookingRequestsScreen.tsx
+│   │   │   │   ├── EarningsScreen.tsx
+│   │   │   │   └── OwnerProfileScreen.tsx
+│   │   │
+│   │   │   ├── components
+│   │   │   │   ├── BookingTable.tsx
+│   │   │   │   ├── EarningsSummary.tsx
+│   │   │   │   └── SlotManager.tsx
+│   │   │
+│   │   │   ├── services
+│   │   │   │   ├── ownerService.ts
+│   │   │   │   └── earningsService.ts
+│   │   │
+│   │   │   └── store
+│   │   │       └── ownerStore.ts
+│   │
+│   │   ├── admin
+│   │   │   ├── screens
+│   │   │   │   ├── AdminDashboard.tsx
+│   │   │   │   ├── UsersScreen.tsx
+│   │   │   │   ├── TurfApprovalScreen.tsx
+│   │   │   │   └── AnalyticsScreen.tsx
+│   │   │
+│   │   │   ├── services
+│   │   │   │   └── adminService.ts
+│   │   │
+│   │   │   └── store
+│   │   │       └── adminStore.ts
+│   │
+│   │   ├── payments
+│   │   │   ├── screens
+│   │   │   │   └── PaymentScreen.tsx
+│   │   │
+│   │   │   ├── services
+│   │   │   │   └── paymentService.ts
+│   │   │
+│   │   │   └── components
+│   │   │       └── PaymentSummary.tsx
+│   │
+│   │   └── notifications
+│   │       ├── hooks
+│   │       │   └── useNotifications.ts
+│   │       │
+│   │       └── services
+│   │           └── notificationService.ts
+│
+│   ├── store
+│   │   ├── rootReducer.ts
+│   │   └── middleware.ts
+│
+│   ├── theme
+│   │   ├── colors.ts
+│   │   ├── spacing.ts
+│   │   └── typography.ts
+│
+│   └── types
+│       ├── auth.ts
+│       ├── user.ts
+│       ├── turf.ts
+│       ├── booking.ts
+│       └── payment.ts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# Folder Explanation
 
-To learn more about developing your project with Expo, look at the following resources:
+### assets
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Stores static resources like images, fonts, icons.
 
-## Join the community
+### src/app
 
-Join our community of developers creating universal apps.
+Application bootstrap and navigation.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### src/config
+
+Application configuration such as API base URL and environment variables.
+
+### src/core
+
+Reusable utilities, hooks, and global services.
+
+### src/components
+
+Reusable UI components shared across features.
+
+### src/features
+
+Feature-based modules such as:
+
+* Authentication
+* Customer flows
+* Owner dashboard
+* Admin panel
+* Payments
+* Notifications
+
+### src/store
+
+Global state management.
+
+### src/theme
+
+Centralized design system.
+
+### src/types
+
+Global TypeScript types.
+
+---
+
+# Installation
+
+Clone repository
+
+```
+git clone https://github.com/yourusername/bookmyturf-app.git
+```
+
+Install dependencies
+
+```
+npm install
+```
+
+Run the project
+
+```
+npx expo start
+```
+
+---
+
+# Future Improvements
+
+* Real-time slot locking using Redis
+* Push notifications
+* AI turf recommendations
+* Dynamic pricing
+* Advanced analytics
+
+---
+
+# License
+
+MIT License
